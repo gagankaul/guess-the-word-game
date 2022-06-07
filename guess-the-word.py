@@ -32,32 +32,31 @@ while running:
   #Display the puzzle to the player
   print(f"\nGuess a {len(game_word)} letter word from the following category: {game_category.title()}")
 
+  guess = " "
   guess_count = 0
-  
-  state = True
-  while state == True:
 
+  while guess != game_word:
     #Get a single guess from the user
-    guess = input("\n\nEnter your guess: ").lower().strip()
+    print("".join(masked_list))
+    guess = input("\nEnter your guess: ").lower().strip()
     guess_count += 1
     
     if guess == game_word:
-      state = False
       print(f"\nCorrect! You guessed the word in {guess_count} guesses!")
       break
     
     else:
       print("That is not correct. Let us reveal a letter to help you!")
-      random_index = random.randint(0,len(word_list)-1)
-      masked_list[random_index] = word_list[random_index]
-      for each in masked_list:
-        print(each, end="")
+      
+      swapping = True
+      while swapping:  
+        random_index = random.randint(0,len(word_list)-1)
+        if masked_list[random_index] == " - ":
+          masked_list[random_index] = word_list[random_index]
+          swapping = False
     
+  #Ask the user to play again
   choice = input("\nPlay again (y/n): ")
   if choice != "y":
     running = False
     print("Thank you for playing this game. Have a nice day!")
-
-
-  
-
