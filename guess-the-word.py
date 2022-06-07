@@ -21,29 +21,31 @@ for key in game_dict.keys():
 running = True
 while running:
 
-  #Pick a random game category from the game_keys list
+  #Pick a random game category and a random word from the game dictionary
   game_category = game_keys[random.randint(0,len(game_keys)-1)]
-
-  #Pick a random word from the chosen category
-  word_index = random.randint(0,len(game_dict[game_category])-1)
-  chosen_word = game_dict[game_category][word_index]
-  word_list = list(chosen_word)
+  game_word = game_dict[game_category][random.randint(0,len(game_dict[game_category])-1)]
+  word_list = list(game_word)
   masked_list = []
-
-  #Display the puzzle to the player
-  print(f"\nGuess a {len(chosen_word)} letter word from the following category: {game_category.title()}")
-  for i in range(0,len(chosen_word)):
+  for i in range(0,len(game_word)):
     masked_list.append(" - ")
 
+  #Display the puzzle to the player
+  print(f"\nGuess a {len(game_word)} letter word from the following category: {game_category.title()}")
+
+  guess_count = 0
+  
   state = True
   while state == True:
 
-    #Get user input
+    #Get a single guess from the user
     guess = input("\n\nEnter your guess: ").lower().strip()
+    guess_count += 1
     
-    if guess == chosen_word:
+    if guess == game_word:
       state = False
-      print("Yay! You guessed it!!")
+      print(f"\nCorrect! You guessed the word in {guess_count} guesses!")
+      break
+    
     else:
       print("That is not correct. Let us reveal a letter to help you!")
       random_index = random.randint(0,len(word_list)-1)
